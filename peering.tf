@@ -1,7 +1,8 @@
 resource "azurecaf_name" "lz-networking-lzhub-peering-name" {
   resource_type = "azurerm_virtual_network_peering"
-  name          = "${var.name}-hub"
-  prefixes      = [var.tenant-short-name]
+  name          = "${var.project-name}-hub"
+  prefixes      = var.resource-prefixes
+  suffixes      = var.resource-suffixes
 }
 
 resource "azurerm_virtual_network_peering" "lz-hub" {
@@ -13,8 +14,9 @@ resource "azurerm_virtual_network_peering" "lz-hub" {
 
 resource "azurecaf_name" "lz-networking-hublz-peering-name" {
   resource_type = "azurerm_virtual_network_peering"
-  name          = "hub-${var.name}"
-  prefixes      = [var.tenant-short-name]
+  name          = "hub-${var.project-name}"
+  prefixes      = var.resource-prefixes
+  suffixes      = var.resource-suffixes
 }
 
 resource "azapi_resource" "virtualNetworkPeerings" {
