@@ -1,8 +1,3 @@
-variable "resource-group-name" {
-  description = "resource group where you want to create the virtual machines"
-  type        = string
-}
-
 variable "location" {
   type        = string
   default     = "switzerlandnorth"
