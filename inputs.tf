@@ -34,6 +34,7 @@ variable "hub-vnet" {
 
 variable "firewall-ip" {
   type        = string
+  default = null
   description = "ip address of the firewall used for forward subnet traffic to the internet"
 }
 
@@ -46,6 +47,7 @@ variable "subnets" {
   type = list(object({
     name          = string
     address-space = string
+    service-endpoints = optional(list(string),[])
   }))
   default     = null
   nullable    = true

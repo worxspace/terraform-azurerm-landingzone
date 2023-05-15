@@ -10,4 +10,5 @@ module "subnet" {
   vnet-name      = azurerm_virtual_network.lz-networking-vnet.name
   address-prefix = each.value.address-space
   firewall-ip    = var.firewall-ip
+  service-endpoints = each.value.service-endpoints
 }
