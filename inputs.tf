@@ -23,15 +23,6 @@ variable "resource-suffixes" {
   default = []
 }
 
-variable "hub-vnet" {
-  type = object({
-    name                = string
-    resource-group-name = string
-    id                  = string
-  })
-  description = "attributes identifying the hub virtual network"
-}
-
 variable "firewall-ip" {
   type        = string
   default = null
