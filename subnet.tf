@@ -1,5 +1,7 @@
 module "subnet" {
-  source   = "github.com/worxspace/tfm-azure-subnet?ref=0.0.5"
+  source   = "app.terraform.io/worxspace/subnet/azurerm"
+  version  = "0.0.5"
+
   for_each = var.subnets == null ? {} : { for subnet in var.subnets : subnet.name => subnet }
 
   project-name        = each.key
