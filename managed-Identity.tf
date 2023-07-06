@@ -5,7 +5,7 @@ resource "azurecaf_name" "managed-identity" {
     "azurerm_resource_group",
     "azurerm_user_assigned_identity"
   ]
-  name     = "${var.project-name}-mi"
+  name     = "github-${var.project-name}"
   prefixes = var.resource-prefixes
   suffixes = var.resource-suffixes
 }
