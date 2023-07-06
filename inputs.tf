@@ -56,3 +56,15 @@ variable "global-tags" {
   default     = {}
   description = "tags to be applied to all resources"
 }
+
+# optional/nullable variable for github_repo
+variable "github_repo" {
+  type = object({
+    owner       = string
+    name        = string
+    environment = string
+  })
+  default     = null
+  nullable    = true
+  description = "github repository information for the managed identity"
+}
