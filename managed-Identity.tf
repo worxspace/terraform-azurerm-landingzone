@@ -1,4 +1,7 @@
-resource "azurecaf_name" "managed-identity" {
+module "managed-identity-name" {
+  source   = "app.terraform.io/worxspace/name/azurecaf"
+  version  = "0.0.2"
+
   count = var.github_repo == null ? 0 : 1
 
   resource_types = [
@@ -8,13 +11,15 @@ resource "azurecaf_name" "managed-identity" {
   name     = "github-${var.project-name}"
   prefixes = var.resource-prefixes
   suffixes = var.resource-suffixes
+
+  random_length = var.random-resource-suffix-length
 }
 
 resource "azurerm_resource_group" "github" {
   count    = var.github_repo == null ? 0 : 1
   provider = azurerm.mi
 
-  name     = azurecaf_name.managed-identity[0].results.azurerm_resource_group
+  name     = module.managed-identity-name[0].results.azurerm_resource_group
   location = var.location
 }
 
@@ -23,7 +28,7 @@ resource "azurerm_user_assigned_identity" "github" {
   provider = azurerm.mi
 
   location            = var.location
-  name                = azurecaf_name.managed-identity[0].results.azurerm_user_assigned_identity
+  name                = module.managed-identity-name[0].results.azurerm_user_assigned_identity
   resource_group_name = azurerm_resource_group.github[0].name
 }
 
@@ -31,7 +36,7 @@ resource "azurerm_federated_identity_credential" "github" {
   count    = var.github_repo == null ? 0 : 1
   provider = azurerm.mi
 
-  name                = azurecaf_name.managed-identity[0].results.azurerm_user_assigned_identity
+  name                = module.managed-identity-name[0].results.azurerm_user_assigned_identity
   resource_group_name = azurerm_resource_group.github[0].name
   audience            = ["api://AzureADTokenExchange"]
   issuer              = "https://token.actions.githubusercontent.com"
@@ -44,7 +49,7 @@ resource "azurerm_federated_identity_credential" "github" {
 data "azurerm_subscription" "current" {}
 
 resource "azurerm_role_assignment" "github" {
-  count    = var.github_repo == null ? 0 : 1
+  count = var.github_repo == null ? 0 : 1
 
   scope                = data.azurerm_subscription.current.id
   role_definition_name = "Owner"

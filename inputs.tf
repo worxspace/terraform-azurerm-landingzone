@@ -16,6 +16,13 @@ variable "resource-prefixes" {
   default = []
 }
 
+variable "random-resource-suffix-length" {
+  type        = number
+  description = "this will add a random string to the end of your resources using a-z and 0-9 upto the number specified"
+
+  default = 0
+}
+
 variable "resource-suffixes" {
   type        = list(string)
   description = "these are appended to resource names and usually include the numbers when multiple resource with the same name exist"
@@ -25,7 +32,7 @@ variable "resource-suffixes" {
 
 variable "firewall-ip" {
   type        = string
-  default = null
+  default     = null
   description = "ip address of the firewall used for forward subnet traffic to the internet"
 }
 
@@ -36,9 +43,9 @@ variable "vnet-address-space" {
 
 variable "subnets" {
   type = list(object({
-    name          = string
-    address-space = string
-    service-endpoints = optional(list(string),[])
+    name              = string
+    address-space     = string
+    service-endpoints = optional(list(string), [])
   }))
   default     = null
   nullable    = true
