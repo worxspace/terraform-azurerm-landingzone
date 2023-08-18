@@ -1,6 +1,6 @@
 module "subnet" {
   source  = "app.terraform.io/worxspace/subnet/azurerm"
-  version = "0.0.6"
+  version = "0.0.7"
 
   for_each = var.subnets == null ? {} : { for subnet in var.subnets : subnet.name => subnet }
 
