@@ -14,9 +14,9 @@ module "rgname" {
   version  = "0.0.2"
 
   resource_type = "azurerm_resource_group"
-  name          = var.project-name
+  name          = "${var.project-name}_networking"
   prefixes      = var.resource-prefixes
-  suffixes      = concat(["networking"],var.resource-suffixes)
+  suffixes      = var.resource-suffixes
   random_length = var.random-resource-suffix-length
 }
 
