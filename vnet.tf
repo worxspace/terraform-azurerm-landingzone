@@ -1,22 +1,22 @@
 module "vnet-name" {
   source   = "app.terraform.io/worxspace/name/azurecaf"
-  version  = "0.0.2"
+  version  = "~>0.0.2"
 
   resource_type = "azurerm_virtual_network"
   name          = var.project-name
   prefixes      = var.resource-prefixes
-  suffixes      = var.resource-suffixes
+  suffixes      = concat(var.resource-suffixes, ["001"])
   random_length = var.random-resource-suffix-length
 }
 
 module "rgname" {
   source   = "app.terraform.io/worxspace/name/azurecaf"
-  version  = "0.0.2"
+  version  = "~>0.0.2"
 
   resource_type = "azurerm_resource_group"
   name          = "${var.project-name}_networking"
   prefixes      = var.resource-prefixes
-  suffixes      = var.resource-suffixes
+  suffixes      = concat(var.resource-suffixes, ["001"])
   random_length = var.random-resource-suffix-length
 }
 

@@ -1,6 +1,6 @@
 module "managed-identity-name" {
   source   = "app.terraform.io/worxspace/name/azurecaf"
-  version  = "0.0.2"
+  version  = "~>0.0.2"
 
   count = var.github_repo == null ? 0 : 1
 
@@ -10,7 +10,7 @@ module "managed-identity-name" {
   ]
   name     = "github_${var.project-name}"
   prefixes = var.resource-prefixes
-  suffixes = var.resource-suffixes
+  suffixes = concat(var.resource-suffixes, ["001"])
 
   random_length = var.random-resource-suffix-length
 }
